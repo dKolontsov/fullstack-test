@@ -12,9 +12,10 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "types": ["css-modules"],
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["./src/**/*.ts"]
+  "include": ["./src/**/*"]
 }
