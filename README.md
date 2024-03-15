@@ -37,7 +37,7 @@ $ npm run build
 ## Running the app
 
 ```bash
-$ bpm install
+$ npm install
 $ npm run start
 ```
 
