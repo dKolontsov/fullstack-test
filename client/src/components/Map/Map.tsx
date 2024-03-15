@@ -3,62 +3,42 @@ import React from 'react';
 import Marker from './Marker/Marker';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import styles from './Map.module.scss';
-
-const markers: marker[] = [
-  {
-    id: '2',
-    name: 'c. Дядьково',
-    type: 'board',
-    status: 'active',
-    lat: 54.6134237163782,
-    lon: 39.8500728607178,
-    imei: '1b702643-972d-428a-b499-9d41db519a9e',
-    location:
-      'Рязанская обл., Рязанский р-н, село Дядьково ул. Центральная в районе дома 157Б (Дядьковская школа)',
-    text: '-',
-    videocamera_id: 0,
-  },
-  {
-    id: '3',
-    name: 'рп. Пронск',
-    type: 'board',
-    status: 'active',
-    lat: 54.1242115223263,
-    lon: 39.5976233482361,
-    imei: 'ab46878c-125e-45ba-9395-2fd2ba9a2d5c',
-    location:
-      'Рязанская обл., Пронский р-н.. рп.Пронск на а/д 61К-005 в районе ул. Березовая.',
-    text: '-',
-    videocamera_id: 0,
-  },
-  {
-    id: '4',
-    name: 'с. Тырново',
-    type: 'board',
-    status: 'active',
-    lat: 54.2747598351987,
-    lon: 39.5826888084412,
-    imei: '9bd2a849-fda3-42f4-b067-735f320e174c',
-    location:
-      'Рязанская обл., Пронский р-н., с. Тырново на а/д 61К-005 в районе пересечения с ул. Новая.',
-    text: '-',
-    videocamera_id: 0,
-  },
-];
+import axios from 'axios';
+import RoadLine from './RoadLine/RoadLine';
 
 const Map = () => {
-  // const [markers, setMarkers] = React.useState([]);
+  const [markers, setMarkers] = React.useState<marker[]>([]);
+  const [roads, setRoads] = React.useState<road[]>([]);
+
+  React.useEffect(() => {
+    axios
+      .get('/markers')
+      .then((res) => setMarkers(res.data))
+      .catch((err) => console.log(err));
+
+    axios
+      .get('/roads')
+      .then((res) => setRoads(res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <MapContainer
       className={styles['leaflet-map']}
-      center={[54.2747598351987, 39.5826888084412]}
+      center={[54.612902, 39.830028]}
       zoom={13}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      {markers.map((mark: marker) => (
+      {markers.map((mark) => (
         <Marker key={mark.id} marker={mark} />
       ))}
+      {roads.map(
+        (road) =>
+          road.coordinates[0] &&
+          road.coordinates[0].length > 0 && (
+            <RoadLine key={road.id} road={road} />
+          ),
+      )}
     </MapContainer>
   );
 };
