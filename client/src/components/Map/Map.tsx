@@ -1,8 +1,8 @@
 import 'leaflet/dist/leaflet.css';
 import React from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import Marker from './Marker/Marker';
+import { MapContainer, TileLayer } from 'react-leaflet';
 import styles from './Map.module.scss';
-import MarkerIcon from '@mui/icons-material/RoomOutlined';
 
 const markers: marker[] = [
   {
@@ -57,11 +57,7 @@ const Map = () => {
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {markers.map((mark: marker) => (
-        <Marker position={[mark.lat, mark.lon]}>
-          <Popup>
-            <div>{mark.location}</div>
-          </Popup>
-        </Marker>
+        <Marker key={mark.id} marker={mark} />
       ))}
     </MapContainer>
   );
