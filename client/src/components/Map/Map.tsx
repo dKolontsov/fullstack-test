@@ -1,9 +1,9 @@
+import axios from 'axios';
 import 'leaflet/dist/leaflet.css';
 import React from 'react';
-import Marker from './Marker/Marker';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import styles from './Map.module.scss';
-import axios from 'axios';
+import Marker from './Marker/Marker';
 import RoadLine from './RoadLine/RoadLine';
 
 const Map = () => {

@@ -1,3 +1,23 @@
 .leaflet-map {
     height: 100vh;
 }
+
+.popupContent {
+    padding: 5px 0;
+    font-family: Roboto, sans-serif;
+  
+    .field {
+      margin-bottom: 10px;
+  
+      .label {
+        font-weight: bold;
+        font-size: 14px;
+        color: #333;
+      }
+  
+      .value {
+        color: #666;
+        padding-left: 5px;
+      }
+    }
+  }
